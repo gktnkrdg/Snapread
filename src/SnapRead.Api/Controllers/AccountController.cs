@@ -166,7 +166,7 @@ namespace SnapRead.Api.Controllers
         {
             BaseResponseModel apiResponseModel = new BaseResponseModel();
             var user = await _userManager.FindByEmailAsync(email);
-            if (user != null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            if (user != null && !(await _userManager.IsEmailConfirmedAsync(user)))
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -191,7 +191,7 @@ namespace SnapRead.Api.Controllers
         {
             BaseResponseModel apiResponseModel = new BaseResponseModel();
             var user = await _userManager.FindByIdAsync(userid);
-            if (user != null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            if (user != null && !(await _userManager.IsEmailConfirmedAsync(user)))
             {
                 var result = await _userManager.ResetPasswordAsync(user, token, password);
                 if (result.Succeeded)
